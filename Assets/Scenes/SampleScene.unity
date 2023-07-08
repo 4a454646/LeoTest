@@ -419,6 +419,6 @@ MonoBehaviour:
   defaultAttackDelay: 0.33
   isTimeSlowed: 0
   timeSlow: 0.12
-  timeSlowAvailable: 0
+  timeSlowAvailable: 100
   maxTimeSlow: 100
   timeSlowDecrease: 7

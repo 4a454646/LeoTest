@@ -368,7 +368,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b780307bc43ffa805b0d539fa40b5504, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ca392300b0d90b745bae4ea1d1da32bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -407,3 +407,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lagSpeed: 10
+  cannonball: {fileID: 8741835995038357834, guid: db4f9a3bd1cd2d2399d771e9efdca23c, type: 3}
+  cannonballOffset: 1.9
+  cannonballSpeed: 20
+  animDelay: 0.03
+  canAttack: 1
+  attackDelay: 0.33

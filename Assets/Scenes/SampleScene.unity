@@ -408,13 +408,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lagSpeed: 10
   cannonball: {fileID: 8741835995038357834, guid: db4f9a3bd1cd2d2399d771e9efdca23c, type: 3}
-  cannonballOffset: 1.5
-  cannonballSpeed: 20
+  cannonballOffset: 2.3
+  cannonballSpeed: 23
   defaultAnimDelay: 0.03
   fastAnimDelay: 0.01
   animDelay: 0.03
   canAttack: 1
   attackDelay: 0.33
-  fastAttackDelay: 0.11
+  fastAttackDelay: 0.02
   defaultAttackDelay: 0.33
-  timeSlow: 0
+  isTimeSlowed: 0
+  timeSlow: 0.12
+  timeSlowAvailable: 0
+  maxTimeSlow: 100
+  timeSlowDecrease: 7

@@ -9,10 +9,16 @@ public class Cannon : MonoBehaviour {
     [SerializeField] private GameObject cannonball;
     [SerializeField] private float cannonballOffset;
     [SerializeField] private float cannonballSpeed;
+    [SerializeField] private float defaultAnimDelay = 0.1f;
+    [SerializeField] private float fastAnimDelay = 0.1f;
     [SerializeField] private float animDelay = 0.1f;
 
     [SerializeField] private bool canAttack = true;
     [SerializeField] private float attackDelay = 0.5f;
+    [SerializeField] private float fastAttackDelay = 0.5f;
+    [SerializeField] private float defaultAttackDelay = 0.5f;
+
+    [SerializeField] private float timeSlow;
 
     private void Start() {
         
@@ -35,7 +41,15 @@ public class Cannon : MonoBehaviour {
         }
 
         if (Input.GetKeyDown(KeyCode.Space)) {
-            
+            canAttack = true;
+            attackDelay = fastAttackDelay;
+            animDelay = fastAnimDelay;
+            Time.timeScale = timeSlow;
+        }
+        else if (Input.GetKeyUp(KeyCode.Space)) {
+            attackDelay = defaultAttackDelay;
+            animDelay = defaultAnimDelay;
+            Time.timeScale = 1;
         }
     }
 

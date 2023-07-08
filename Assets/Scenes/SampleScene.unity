@@ -387,7 +387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045660481}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.03, y: 0.18, z: 0}
+  m_LocalPosition: {x: 0.03, y: -0.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -410,6 +410,11 @@ MonoBehaviour:
   cannonball: {fileID: 8741835995038357834, guid: db4f9a3bd1cd2d2399d771e9efdca23c, type: 3}
   cannonballOffset: 1.5
   cannonballSpeed: 20
+  defaultAnimDelay: 0.03
+  fastAnimDelay: 0.01
   animDelay: 0.03
   canAttack: 1
   attackDelay: 0.33
+  fastAttackDelay: 0.11
+  defaultAttackDelay: 0.33
+  timeSlow: 0

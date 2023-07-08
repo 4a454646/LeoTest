@@ -5,18 +5,61 @@ using UnityEngine;
 public class Cannon : MonoBehaviour {
     [SerializeField] private float lagSpeed = 2.0f;
     private Quaternion targetRotation;
-    void Start() {
+
+    [SerializeField] private GameObject cannonball;
+    [SerializeField] private float cannonballOffset;
+    [SerializeField] private float cannonballSpeed;
+    [SerializeField] private float animDelay = 0.1f;
+
+    [SerializeField] private bool canAttack = true;
+    [SerializeField] private float attackDelay = 0.5f;
+
+    private void Start() {
         
     }
 
-    void Update() {
+    private void Update() {
         Vector3 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         cursorPos.z = transform.position.z;
         Vector3 direction = cursorPos - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-        // Interpolate between the current rotation and the target rotation
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * lagSpeed);
+
+        if (Input.GetMouseButton(0)) {
+            if (canAttack) {
+                canAttack = false;
+                StartCoroutine(RefreshAttack());
+                StartCoroutine(FireProjectile());
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            
+        }
+    }
+
+    private IEnumerator RefreshAttack() {
+        yield return new WaitForSeconds(attackDelay);
+        canAttack = true;
+    }
+
+    private IEnumerator FireProjectile() {
+        yield return new WaitForSeconds(animDelay);
+        // squash, then unsquash the cannon for added visual effect
+        transform.localScale = new Vector3(0.85f, 1.0f, 1.0f);
+        yield return new WaitForSeconds(animDelay);
+        transform.localScale = new Vector3(0.65f, 1.0f, 1.0f);
+        yield return new WaitForSeconds(animDelay * 2);
+        transform.localScale = new Vector3(0.85f, 1.0f, 1.0f);
+        yield return new WaitForSeconds(animDelay / 2);
+        transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        yield return new WaitForSeconds(animDelay);
+        GameObject shot = Instantiate(
+            cannonball, 
+            transform.position + transform.right * cannonballOffset,
+            transform.rotation
+        );
+        shot.GetComponent<Rigidbody2D>().velocity = shot.transform.right * cannonballSpeed;
     }
 }

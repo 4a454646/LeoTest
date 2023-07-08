@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class FishSpawner : MonoBehaviour
 {
+    private enum FishType
+    {
+        Basic,
+        Annoying
+    }
+
     [SerializeField] private Player player;
     [SerializeField] private GameObject fish;
+    [SerializeField] private Sprite[] fishSprite;
+    //[SerializeField] private Dictionary<FishType, float
     [SerializeField] private float fishSpawnDelay = 2f;
     [SerializeField] private float fishFireSpeed = 7f;
     [SerializeField] private float fishFirePower = 20f;
     // Start is called before the first frame update
     void Start()
     {
+
         player = FindObjectOfType<Player>();
         StartCoroutine(fishSpawn());
     }

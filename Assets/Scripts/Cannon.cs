@@ -21,15 +21,41 @@ public class Cannon : MonoBehaviour {
 
     [SerializeField] private bool isTimeSlowed = false;
     [SerializeField] private float timeSlow;
-    [SerializeField] private int timeSlowAvailable = 100;
-    [SerializeField] private int maxTimeSlow = 100;
-    [SerializeField] private int timeSlowDecrease = 2;
+    [SerializeField] private float timeSlowAvailable = 100;
+    [SerializeField] private float maxTimeSlow = 100;
+    [SerializeField] private float timeSlowDecrease = 2;
+    [SerializeField] private GameObject timeSlowBar;
+    [SerializeField] private float regenDelay = 0.5f;
+    [SerializeField] private float regenAmount = 0.1f;
+    private float lastRealTime;
 
     private void Start() {
-        
+        lastRealTime = Time.realtimeSinceStartup;
+        StartCoroutine(RegenerateTimeSlow());
+    }
+
+    private IEnumerator RegenerateTimeSlow() {
+        while (true) {
+            yield return new WaitForSeconds(regenDelay);
+            if (!isTimeSlowed) {
+                timeSlowAvailable += regenAmount;
+                if (timeSlowAvailable > maxTimeSlow) {
+                    timeSlowAvailable = maxTimeSlow;
+                }
+                timeSlowBar.transform.localScale = new Vector3(
+                    timeSlowBar.transform.localScale.x,
+                    timeSlowAvailable / maxTimeSlow * 10,
+                    timeSlowBar.transform.localScale.z
+                );
+            }
+        }
     }
 
     private void Update() {
+        float deltaTime = Time.realtimeSinceStartup - lastRealTime;
+        lastRealTime = Time.realtimeSinceStartup;
+
+
         Vector3 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         cursorPos.z = transform.position.z;
         Vector3 direction = cursorPos - transform.position;
@@ -56,16 +82,23 @@ public class Cannon : MonoBehaviour {
         else if (Input.GetKeyUp(KeyCode.Space)) {
             ResetTimeSpeed();
         }
-    }
 
-    private void FixedUpdate() {
         if (isTimeSlowed) {
-            timeSlowAvailable -= timeSlowDecrease;
+            timeSlowAvailable -= timeSlowDecrease * deltaTime;
+            timeSlowBar.transform.localScale = new Vector3(
+                timeSlowBar.transform.localScale.x,
+                timeSlowAvailable / maxTimeSlow * 10,
+                timeSlowBar.transform.localScale.z
+            );
             if (timeSlowAvailable < 0) {
                 timeSlowAvailable = 0;
                 ResetTimeSpeed();
             }
         }
+    }
+
+    private void FixedUpdate() {
+
     }
 
     private void ResetTimeSpeed() {

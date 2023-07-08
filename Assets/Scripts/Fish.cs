@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Fish : MonoBehaviour {
     [SerializeField] public int health = 2;
+    [SerializeField] public Sprite deadFish;
     private void Start() {
     
     }

@@ -18,6 +18,9 @@ public class Bullet : MonoBehaviour {
             if (fish.health <= 1) {
                 fish.GetComponent<Rigidbody2D>().mass = 0.1f;
                 fish.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                fish.GetComponent<SpriteRenderer>().sprite = fish.GetComponent<Fish>().deadFish;
+                FindObjectOfType<Cannon>().timeSlowAvailable += 10;
+                FindObjectOfType<Cannon>().SetTimeBarScale();
             }
             Destroy(gameObject);
         }

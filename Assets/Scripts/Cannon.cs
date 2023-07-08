@@ -21,7 +21,7 @@ public class Cannon : MonoBehaviour {
 
     [SerializeField] private bool isTimeSlowed = false;
     [SerializeField] private float timeSlow;
-    [SerializeField] private float timeSlowAvailable = 100;
+    [SerializeField] public float timeSlowAvailable = 100;
     [SerializeField] private float maxTimeSlow = 100;
     [SerializeField] private float timeSlowDecrease = 2;
     [SerializeField] private GameObject timeSlowBar;
@@ -42,13 +42,17 @@ public class Cannon : MonoBehaviour {
                 if (timeSlowAvailable > maxTimeSlow) {
                     timeSlowAvailable = maxTimeSlow;
                 }
-                timeSlowBar.transform.localScale = new Vector3(
-                    timeSlowBar.transform.localScale.x,
-                    timeSlowAvailable / maxTimeSlow * 10,
-                    timeSlowBar.transform.localScale.z
-                );
+                SetTimeBarScale();
             }
         }
+    }
+
+    public void SetTimeBarScale() {
+        timeSlowBar.transform.localScale = new Vector3(
+            timeSlowBar.transform.localScale.x,
+            timeSlowAvailable / maxTimeSlow * 10,
+            timeSlowBar.transform.localScale.z
+        );
     }
 
     private void Update() {
